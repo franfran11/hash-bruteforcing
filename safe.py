@@ -19,7 +19,7 @@ template = """
  example : crack.py -w:wordlists.txt hashes.txt 
 """
 
-
+#Setup command line arguments
 if "-h" in sys.argv[1]:
     print(template)
     exit()
@@ -40,6 +40,7 @@ try:
 except FileNotFoundError:
     print("FileNotFound")
     exit()
+#Stripping the \n
 passlist = [i.strip("\n") for i in content]
 hashes = [crypted.strip("\n") for crypted in encrypted]
 cracked = 0
@@ -48,6 +49,7 @@ start = time.time()
 for has in hashes:
     for i in passlist:
         v = i.encode('utf-8')
+#Specifie hash type
         guess = hashlib.md5(v).hexdigest()
         if guess == has:
             print(f"Password for {has} is {i}")
